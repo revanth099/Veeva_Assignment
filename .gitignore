@@ -3,9 +3,16 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-logs/framework.log
-reports/**
-screenshots/**
+# Ignore everything in reports, screenshots, logs
+/reports/*
+/screenshots/*
+/logs/*
+
+# But keep the folders + their contents tracked
+!/reports/**
+!/screenshots/**
+!/logs/**
+
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
