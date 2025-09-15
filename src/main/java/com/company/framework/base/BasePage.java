@@ -1,13 +1,13 @@
 package com.company.framework.base;
 
-import com.company.framework.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public abstract  class BasePage {
+public class BasePage {
 
     public BasePage(WebDriver driver) {
-        PageFactory.initElements(driver, this); // called only here
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this); // called only here
     }
 }
 

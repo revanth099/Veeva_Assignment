@@ -1,41 +1,53 @@
 package com.company.framework.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 
 public class DriverManager {
 
-        private static final ThreadLocal<WebDriver> threadLocDriver = new ThreadLocal<>();
+    // Thread-safe driver
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-        public static WebDriver getDriver() {
-            return threadLocDriver.get();
-        }
-
-        public static WebDriver createDriver(String browser) {
-
-            if(threadLocDriver.get()==null){
-                switch (browser.toLowerCase()) {
-                    case "chrome":
-                        threadLocDriver.set(WebDriverManager.chromedriver().create());
-                        break;
-                    case "firefox":
-                        threadLocDriver.set(WebDriverManager.firefoxdriver().create());
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unsupported browser: " + browser);
-                }
-            }
-
-            return getDriver();
-        }
-
-        public static void quitDriver() {
-            WebDriver d = threadLocDriver.get();
-            if (d != null) {
-                d.quit();
-
+    // Create driver
+    public static WebDriver setDriver(String browser) {
+        if (driver.get() == null) {
+            switch (browser.toLowerCase()) {
+                case "chrome":
+                    WebDriverManager.chromedriver().setup();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+                    driver.set(new ChromeDriver(chromeOptions));
+                    break;
+                case "firefox":
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
+                    driver.set(new FirefoxDriver(firefoxOptions));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unsupported browser: " + browser);
             }
         }
+        return getDriver();
+    }
+
+    // Get driver
+    public static WebDriver getDriver() {
+        System.out.println("Driver value "+ driver.get()== null);
+        return driver.get();
+    }
+
+    // Quit driver
+    public static void quitDriver() {
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
+        }
+    }
 
 }
