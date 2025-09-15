@@ -5,13 +5,14 @@ target/
 
 # Ignore everything in reports, screenshots, logs
 /reports/*
-/screenshots/*
-/logs/*
+!/reports/.gitkeep
 
-# But keep the folders + their contents tracked
-!/reports/**
-!/screenshots/**
-!/logs/**
+/logs/*
+!/logs/.gitkeep
+
+/screenshots/*
+!/screenshots/.gitkeep
+
 
 
 ### IntelliJ IDEA ###
