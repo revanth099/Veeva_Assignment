@@ -1,11 +1,14 @@
 package com.company.framework.pages;
 
 import com.company.framework.base.BasePage;
+import com.company.framework.utils.Log;
 import com.company.framework.utils.UtilityMethods;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class CpHomePage extends BasePage {
 
@@ -40,13 +43,16 @@ public class CpHomePage extends BasePage {
     }
     public void handlePopup() {
         try{
-            WebElement closeBtn = utilityMethods.waitForElementToBeClickable(closePopup);
-            closeBtn.click();
-            utilityMethods.invisibilityOfElement(popup);
+            if(popup.isDisplayed()){
+                WebElement closeBtn = utilityMethods.waitForElementToBeClickable(closePopup);
+                closeBtn.click();
+                utilityMethods.invisibilityOfElement(popup);
+            }
         } catch (TimeoutException e) {
             System.out.println("No popup appeared.");
         }
     }
+
 
 
 }

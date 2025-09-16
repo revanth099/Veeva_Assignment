@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="suite">
-
-
-    <test name="CP1" thread-count="2">
+<suite name="suite" parallel="methods" thread-count="3">
+    <test name="CP1" >
         <parameter name="browser" value="chrome"></parameter>
         <parameter name="url" value="cpUrl"></parameter>
         <classes>
-            <class name="com.company.tests.Cp1"></class>
+            <class name="com.company.tests.Cp1Test"></class>
+        </classes>
+    </test>
+
+    <test name="DP1" >
+        <parameter name="browser" value="firefox"></parameter>
+        <parameter name="url" value="dp1Url"></parameter>
+        <classes>
+            <class name="com.company.tests.Dp1Test"></class>
+        </classes>
+    </test>
+
+    <test name="DP2" >
+        <parameter name="browser" value="chrome"></parameter>
+        <parameter name="url" value="dp2url"></parameter>
+        <classes>
+            <class name="com.company.tests.Dp2Test"></class>
         </classes>
     </test>
 </suite>

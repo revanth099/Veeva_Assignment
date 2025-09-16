@@ -42,7 +42,7 @@ public class ExtentReportManager {
         test = getReportInstance().createTest("Test case name: "+testName);
         return test;
     }
-    public ExtentTest getTest() {
+    public static ExtentTest getTest() {
        if(test!=null) {
            return test = ExtentReportManager.test;
        }

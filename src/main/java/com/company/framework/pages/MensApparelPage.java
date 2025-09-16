@@ -49,7 +49,7 @@ public class MensApparelPage extends BasePage {
     }
 
     public void selectMenMenuOption(){
-        utilityMethods.handleStaleness(menOption);
+        utilityMethods.handleStaleness(menOption).click();
         utilityMethods.waitForElementToBeClickable(menOption);
     }
 
@@ -88,7 +88,38 @@ public class MensApparelPage extends BasePage {
     public WebElement getNextPageButton() { return nextPageButton; }
     public List<WebElement> getPageLinks() { return pageLinks; }
 
-   public  List<String> getAllProductPrices(){
+    public List<String> getAllProductsPricesWithTitles(){
+        List<String> productData = new ArrayList<>();
+
+        while(true){
+            Log.info("Getting Product Data...");
+            int productCount = productDataList.size();
+            Log.info("Product Count: " + productCount);
+            Log.info("Product Name List Size: " + productName.size());
+            Log.info("Product Price List Size: " + productPrice.size());
+
+            for(int i=0;i<productCount;i++){
+                String price = productPrice.get(i).getText();
+                String productTitle = productName.get(i).getText();
+                productData.add(productTitle + " || " + price );
+            }
+            try {
+                if (nextPageButton.isDisplayed() && nextPageButton.isEnabled()) {
+                    nextPageButton.click();
+                    utilityMethods.waitForElementVisible(searchBox);
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                break;
+            }
+
+        }
+        return productData;
+    }
+
+
+    public  List<String> getAllProductPrices(){
         List<String> productPricesList = new ArrayList<>();
         for(WebElement element: productPrice){
             productPricesList.add(element.getText());

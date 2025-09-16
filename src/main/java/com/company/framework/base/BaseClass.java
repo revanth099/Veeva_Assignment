@@ -25,6 +25,7 @@ public class BaseClass {
     public void setupReport() {
         extent = ExtentReportManager.getReportInstance();
 
+
     }
     @AfterSuite
     public void teardownReport() {
