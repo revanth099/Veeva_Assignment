@@ -96,3 +96,6 @@ Configure environment in config.properties:
 Run a specific suite:
 
 	mvn clean test -DsuiteXmlFile=testng.xml
+
+Framework Architecture Diagram
+    ![img.png](img.png)
